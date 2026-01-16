@@ -1,0 +1,49 @@
+name: geo-cleanser
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+
+dependencies:
+  - python=3.10
+  - pip
+
+  # --- Force CUDA build of PyTorch ---
+  - pytorch-mutex=1.0=cuda
+  - pytorch=2.3.*
+  - torchvision=0.18.*
+  - torchaudio=2.3.*
+  - pytorch-cuda=12.1
+
+  # --- Core numeric/data stack ---
+  - numpy=1.26.*
+  - pandas=2.3.*
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - tqdm
+  - requests
+  - pyyaml
+  - biopython
+
+  # --- FAISS (GPU): prefer PyTorch channel build ---
+  - pytorch::faiss-gpu
+
+  - pip:
+      - pytest
+      - python-dotenv
+      - GEOparse==2.0.4
+      - obonet
+      - stanza
+      - gliner==0.2.21   # example pin; choose the exact version you test
+      - transformers>=4.41,<5
+      - sentence-transformers>=3.0,<4
+      - tokenizers>=0.19,<1
+      - accelerate==0.33.0   # example pin
+      - safetensors==0.4.5    # example pin
+      - pydantic==2.9.2       # example pin
+      - pyahocorasick
+      - rank-bm25
+      - typer
+      - responses
+      - jsonschema

@@ -1,0 +1,22 @@
+experiment_id: EXP-02
+description: Lexical vs bi-encoder vs bi-encoder+cross rerank
+defaults:
+  cli:
+    disease: ["lung cancer"]
+  config: {}
+variants:
+- variant_id: lexical_only
+  overrides:
+    linker.mode: lexical_only
+- variant_id: lexical_plus_bi
+  overrides:
+    linker.mode: lexical_plus_bi
+    models.embedder: sentence-transformers/all-MiniLM-L6-v2
+- variant_id: lexical_plus_bi_plus_cross
+  overrides:
+    linker.mode: lexical_plus_bi_plus_cross
+    models.embedder: sentence-transformers/all-MiniLM-L6-v2
+    models.reranker: cross-encoder/ms-marco-MiniLM-L-6-v2
+export:
+  csv: compare_linker_modes.csv
+baseline_variant_id: lexical_only

@@ -1,0 +1,27 @@
+experiment_id: EXP-06
+description: Synonyms/definitions on/off ablation
+defaults:
+  cli:
+    disease: ["lung cancer"]
+    skip_query: true
+    corpus_file: "runs/corpora/corpus_lung_cancer/corpus/corpus_gse_ids.json"
+  config: {}
+variants:
+- variant_id: syn_on_def_on
+  overrides:
+    ontology.use_synonyms: true
+    ontology.use_definitions: true
+- variant_id: syn_on_def_off
+  overrides:
+    ontology.use_synonyms: true
+    ontology.use_definitions: false
+- variant_id: syn_off_def_on
+  overrides:
+    ontology.use_synonyms: false
+    ontology.use_definitions: true
+- variant_id: syn_off_def_off
+  overrides:
+    ontology.use_synonyms: false
+    ontology.use_definitions: false
+export:
+  csv: ontology_variant_ablation.csv

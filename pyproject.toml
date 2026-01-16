@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geo-cleaner"
+version = "0.0.1"
+description = "Stage-0 scaffold for robust GEO metadata cleaning (single-PC, GPU-ready)."
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+geo-cleaner = "geo_cleaner.cli:app"

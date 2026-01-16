@@ -1,0 +1,20 @@
+experiment_id: EXP-09
+description: Cold vs warm cache + partial restart (requires run-dir resume semantics)
+defaults:
+  cli:
+    disease: ["lung cancer"]
+    skip_query: true
+    corpus_file: "runs/corpora/corpus_lung_cancer/corpus/corpus_gse_ids.json"
+  config: {}
+variants:
+- variant_id: cold_run
+  overrides:
+    cache.mode: cold
+- variant_id: warm_run
+  overrides:
+    cache.mode: warm
+- variant_id: partial_restart
+  overrides:
+    run.resume: true
+export:
+  json: cache_effect_report.json

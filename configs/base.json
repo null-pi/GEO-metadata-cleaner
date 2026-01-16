@@ -1,0 +1,21 @@
+{
+  "models": {},
+  "ontologies": {},
+  "query": {
+    "date_end": null,
+    "date_start": null,
+    "max_gse": 200,
+    "organism": "Homo sapiens"
+  },
+  "run": {
+    "ncbi": {
+      "api_key": null,
+      "base_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils",
+      "email": "unknown@example.com",
+      "rps": 3.0,
+      "timeout_s": 30.0,
+      "tool": "geo_cleaner"
+    },
+    "out_dir": "runs"
+  }
+}
