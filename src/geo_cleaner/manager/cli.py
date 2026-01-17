@@ -6,6 +6,8 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from geo_cleaner.database import GEODatabase, DownloadRecord
+
 from .searcher import GEOSearcher
 from .downloader import GEODownloader
 
@@ -23,9 +25,6 @@ def search_and_download(
     ),
     out_dir: str = typer.Option(
         None, "--out-dir", "-o", help="Output directory for downloaded datasets"
-    ),
-    save_list: pathlib.Path = typer.Option(
-        None, "--save-list", "-s", help="File to save the list of found GSE IDs"
     ),
     force: bool = typer.Option(
         False, "--force", "-f", help="Force re-download of datasets even if they exist"
@@ -48,7 +47,19 @@ def search_and_download(
         raise typer.Exit()
 
     downloader = GEODownloader(out_dir)
-    downloader.download(gse_ids, force=force)
+    downloaded_ids = downloader.download(gse_ids, force=force)
+
+    if downloaded_ids:
+        db = GEODatabase()
+        console.print(
+            f"\n[cyan]💾 Saving {len(downloaded_ids)} records to database...[/cyan]"
+        )
+
+        for gse, filename in downloaded_ids:
+            record = DownloadRecord(gse_id=gse, filename=filename, query=query)
+            db.add_record(record)
+
+        console.print("[bold green]✅ Download and logging complete![/bold green]")
 
 
 @geo_app.command("download-list")

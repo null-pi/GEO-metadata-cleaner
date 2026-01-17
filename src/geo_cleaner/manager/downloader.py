@@ -7,6 +7,8 @@ from rich.console import Console
 import requests
 from tqdm import tqdm
 
+from geo_cleaner.database import GEODatabase, DownloadRecord
+
 console = Console()
 logger = logging.getLogger(__name__)
 
@@ -26,6 +28,8 @@ class GEODownloader:
 
         self.out_dir.mkdir(parents=True, exist_ok=True)
 
+        self.db = GEODatabase()
+
     def _construct_ftp_url(self, gse_ids: str) -> str:
         clean_id = gse_ids.strip().upper()
 
@@ -38,8 +42,12 @@ class GEODownloader:
 
         return f"{BASE_URL}/{stub}/{clean_id}/miniml/{filename}"
 
-    def download(self, gse_ids: list[str], force: bool = False):
+    def download(
+        self, gse_ids: list[str], force: bool = False
+    ) -> list[tuple[str, pathlib.Path]]:
         console.print(f"⬇️  Queueing {len(gse_ids)} datasets for download...")
+
+        successful_downloads = []
 
         for gse in tqdm(gse_ids, desc="Total Progress"):
             url = self._construct_ftp_url(gse)
@@ -76,7 +84,13 @@ class GEODownloader:
                 os.rename(temp_filename, filename)
                 tqdm.write(f"✅ Downloaded {gse} successfully.")
 
+                record = DownloadRecord(gse_id=gse, filename=filename, query=url)
+                
+                self.db.add_record(record)
+
             except Exception as e:
                 tqdm.write(f"❌ Error downloading {gse}: {e}")
                 if temp_filename.exists():
                     os.remove(temp_filename)
+
+        return successful_downloads
