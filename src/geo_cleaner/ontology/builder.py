@@ -7,8 +7,10 @@ from typing import Optional
 
 import requests
 from tqdm import tqdm
+from rich.console import Console
 
 logger = logging.getLogger(__name__)
+console = Console()
 
 
 @dataclass
@@ -36,7 +38,7 @@ class OntologyBuilder:
         else:
             self.out_dir = pathlib.Path(out_dir)
 
-        logger.info(f"Looking for ontologies config at: {self.config_file}")
+        console.print(f"Looking for ontologies config at: {self.config_file}")
 
         self.out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -62,7 +64,7 @@ class OntologyBuilder:
                 )
             )
 
-        logger.info(f"Prepared {len(self.ontologies)} ontologies for download.")
+        console.print(f"Prepared {len(self.ontologies)} ontologies for download.")
 
     def download(self, force: bool = False):
         for ontology in tqdm(self.ontologies, desc="Overall Progress"):
@@ -71,11 +73,8 @@ class OntologyBuilder:
                 final_filename = ontology.filename
 
                 if os.path.exists(final_filename) and not force:
-                    tqdm.write(
-                        f"✅ {ontology.name} exists and matches size. Skipping."
-                    )
+                    tqdm.write(f"✅ {ontology.name} exists and matches size. Skipping.")
                     continue
-                        
 
                 with requests.get(ontology.url, stream=True) as response:
                     response.raise_for_status()
