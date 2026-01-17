@@ -1,4 +1,4 @@
-name: geo-cleanser
+name: geo-cleaner
 channels:
   - pytorch
   - nvidia
@@ -32,6 +32,9 @@ dependencies:
   - pip:
       - pytest
       - python-dotenv
+      - responses
+      - typer
+      - rich
       - GEOparse==2.0.4
       - obonet
       - stanza
@@ -40,10 +43,8 @@ dependencies:
       - sentence-transformers>=3.0,<4
       - tokenizers>=0.19,<1
       - accelerate==0.33.0   # example pin
-      - safetensors==0.4.5    # example pin
-      - pydantic==2.9.2       # example pin
+      - safetensors==0.4.5
+      - pydantic==2.9.2
       - pyahocorasick
       - rank-bm25
-      - typer
-      - responses
       - jsonschema

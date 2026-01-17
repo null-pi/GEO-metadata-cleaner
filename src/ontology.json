@@ -1,0 +1,30 @@
+{
+    "EFO": {
+        "desc": "Experimental Factor Ontology",
+        "url": "https://www.ebi.ac.uk/efo/efo.obo"
+    },
+    "CL": {
+        "desc": "Cell Ontology",
+        "url": "http://purl.obolibrary.org/obo/cl.obo"
+    },
+    "UBERON": {
+        "desc": "Uberon Multi-species Anatomy Ontology",
+        "url": "http://purl.obolibrary.org/obo/uberon.obo"
+    },
+    "DOID": {
+        "desc": "Disease Ontology",
+        "url": "http://purl.obolibrary.org/obo/doid.obo"
+    },
+    "NCBITaxon": {
+        "desc": "NCBI Taxonomy",
+        "url": "http://purl.obolibrary.org/obo/ncbitaxon.obo"
+    },
+    "CHEBI": {
+        "desc": "Chemical Entities of Biological Interest",
+        "url": "http://purl.obolibrary.org/obo/chebi.obo"
+    },
+    "PATO": {
+        "desc": "Phenotypic Quality Ontology",
+        "url": "http://purl.obolibrary.org/obo/pato.obo"
+    }
+}
